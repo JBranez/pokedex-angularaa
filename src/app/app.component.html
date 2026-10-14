@@ -1,0 +1,80 @@
+<header>
+  <h1>Pokédex</h1>
+  <p>Busca y filtra Pokémon usando <a href="https://pokeapi.co" target="_blank">PokeAPI</a></p>
+</header>
+
+<section class="filters">
+  <input type="search" placeholder="Buscar por nombre o número…" [ngModel]="search()"
+         (ngModelChange)="search.set($event); resetPage()" />
+
+  <select [ngModel]="type()" (ngModelChange)="onType($event)">
+    <option value="">Todos los tipos</option>
+    @for (t of types(); track t) {
+      <option [value]="t">{{ t | titlecase }}</option>
+    }
+  </select>
+
+  <select [ngModel]="gen()" (ngModelChange)="gen.set($event); resetPage()">
+    <option value="">Todas las generaciones</option>
+    @for (g of generations; track g.label; let i = $index) {
+      <option [value]="i">{{ g.label }}</option>
+    }
+  </select>
+
+  <select [ngModel]="sort()" (ngModelChange)="sort.set($event)">
+    <option value="id">Ordenar por número</option>
+    <option value="name">Ordenar por nombre</option>
+  </select>
+
+  <button (click)="clear()">Limpiar</button>
+</section>
+
+@if (loading()) {
+  <p class="msg">Cargando Pokémon…</p>
+} @else if (error()) {
+  <p class="msg error">{{ error() }}</p>
+} @else {
+  <p class="msg">{{ filtered().length }} resultado(s)</p>
+
+  <main class="grid">
+    @for (p of visible(); track p.id) {
+      <article class="card" (click)="open(p)">
+        <span class="num">#{{ p.id }}</span>
+        <img [src]="p.sprite" [alt]="p.name" loading="lazy" />
+        <h3>{{ p.name | titlecase }}</h3>
+      </article>
+    }
+  </main>
+
+  @if (visible().length < filtered().length) {
+    <div class="more"><button (click)="shown.set(shown() + pageSize)">Cargar más</button></div>
+  }
+}
+
+@if (selected(); as d) {
+  <div class="backdrop" (click)="close()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <button class="x" (click)="close()">✕</button>
+      <img [src]="art(d)" [alt]="d.name" />
+      <h2>{{ d.name | titlecase }} <small>#{{ d.id }}</small></h2>
+      <div class="chips">
+        @for (t of d.types; track t.type.name) {
+          <span class="chip {{ t.type.name }}">{{ t.type.name }}</span>
+        }
+      </div>
+      <p>Altura: {{ d.height / 10 }} m · Peso: {{ d.weight / 10 }} kg</p>
+      <p>Habilidades:
+        @for (a of d.abilities; track a.ability.name; let last = $last) {
+          {{ a.ability.name | titlecase }}{{ last ? '' : ', ' }}
+        }
+      </p>
+      @for (s of d.stats; track s.stat.name) {
+        <div class="stat">
+          <span>{{ s.stat.name }}</span>
+          <div class="bar"><div [style.width.%]="(s.base_stat / 255) * 100"></div></div>
+          <b>{{ s.base_stat }}</b>
+        </div>
+      }
+    </div>
+  </div>
+}

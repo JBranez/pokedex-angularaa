@@ -1,0 +1,39 @@
+:host { display: block; max-width: 1100px; margin: 0 auto; padding: 1rem; font-family: system-ui, sans-serif; color: #222; }
+header { text-align: center; }
+h1 { margin: 0; color: #e3350d; }
+header p { margin: .25rem 0 1rem; color: #666; }
+a { color: #3b4cca; }
+
+.filters { display: flex; flex-wrap: wrap; gap: .5rem; justify-content: center; }
+.filters input { flex: 1 1 220px; }
+input, select, button { padding: .55rem .75rem; border: 1px solid #ccc; border-radius: 8px; font-size: 1rem; background: #fff; }
+button { cursor: pointer; background: #3b4cca; color: #fff; border-color: #3b4cca; }
+button:hover { background: #2c3aa0; }
+
+.msg { text-align: center; color: #555; }
+.error { color: #c00; }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1rem; }
+.card { position: relative; background: #f6f6f6; border-radius: 12px; padding: .75rem; text-align: center; cursor: pointer; transition: transform .15s, box-shadow .15s; }
+.card:hover { transform: translateY(-4px); box-shadow: 0 6px 14px rgba(0,0,0,.15); }
+.card img { width: 100%; aspect-ratio: 1; object-fit: contain; }
+.card h3 { margin: .25rem 0 0; font-size: 1rem; }
+.num { position: absolute; top: .5rem; left: .6rem; font-size: .8rem; color: #888; }
+.more { text-align: center; margin: 1.5rem 0; }
+
+.backdrop { position: fixed; inset: 0; background: rgba(0,0,0,.5); display: grid; place-items: center; padding: 1rem; }
+.modal { position: relative; background: #fff; border-radius: 16px; padding: 1.25rem; width: min(420px, 100%); max-height: 90vh; overflow: auto; text-align: center; }
+.modal img { width: 200px; height: 200px; object-fit: contain; }
+.modal h2 { margin: 0; } .modal small { color: #888; }
+.x { position: absolute; top: .5rem; right: .5rem; padding: .25rem .6rem; }
+.chips { display: flex; gap: .4rem; justify-content: center; margin: .5rem 0; }
+.chip { padding: .15rem .7rem; border-radius: 999px; color: #fff; text-transform: capitalize; background: #777; font-size: .85rem; }
+.chip.fire { background: #f08030; } .chip.water { background: #6890f0; } .chip.grass { background: #78c850; }
+.chip.electric { background: #f8d030; color: #333; } .chip.psychic { background: #f85888; } .chip.ice { background: #98d8d8; color: #333; }
+.chip.dragon { background: #7038f8; } .chip.dark { background: #705848; } .chip.fairy { background: #ee99ac; }
+.chip.fighting { background: #c03028; } .chip.poison { background: #a040a0; } .chip.ground { background: #e0c068; color: #333; }
+.chip.flying { background: #a890f0; } .chip.bug { background: #a8b820; } .chip.rock { background: #b8a038; }
+.chip.ghost { background: #705898; } .chip.steel { background: #b8b8d0; color: #333; } .chip.normal { background: #a8a878; }
+.stat { display: grid; grid-template-columns: 110px 1fr 36px; gap: .5rem; align-items: center; text-align: left; font-size: .85rem; text-transform: capitalize; }
+.bar { background: #eee; border-radius: 6px; height: 8px; overflow: hidden; }
+.bar div { height: 100%; background: #3b4cca; }
